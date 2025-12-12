@@ -18,6 +18,7 @@
 ## 📎 Requirements
 
 - [x] Node.js **[Download](https://nodejs.org/en/download/)**
+- [x] Disable Chat Filter **[Chatbot Troubleshooting](https://tikfinity.zerody.one/chatbot-troubleshooting)**
 
 ## 📚 Installation
 
