@@ -17,6 +17,7 @@
 
 ## 📎 Requirements
 
+- [x] Git **[Download](https://github.com/git-for-windows/git/releases/download/v2.52.0.windows.1/Git-2.52.0-64-bit.exe)**
 - [x] Node.js **[Download](https://nodejs.org/en/download/)**
 - [x] Disable Chat Filter **[Chatbot Troubleshooting](https://tikfinity.zerody.one/chatbot-troubleshooting)**
 
