@@ -1,0 +1,8 @@
+{
+    "username": "respacis",
+    "bancho": {
+        "username": "YOUR_USERNAME",
+        "password": "YOUR_IRC_PASSWORD",
+        "apiKey": "YOUR_API_KEY"
+    }
+}

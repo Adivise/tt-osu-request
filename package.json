@@ -1,0 +1,10 @@
+{
+  "name": "tt-osu-request",
+  "version": "1.0.0",
+  "description": "TikTok bot for osu! request",
+  "dependencies": {
+    "bancho.js": "^0.12.1",
+    "nodesu": "^0.7.3",
+    "tiktok-live-connector": "^2.1.0"
+  }
+}
