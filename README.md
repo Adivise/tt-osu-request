@@ -29,6 +29,7 @@ npm install
 ```
 
 After installation finishes you can use `node .` to start the bot.
+Your should to **GOLIVE** first before start the bot.
 
 ## 📄 Configuration
 
