@@ -34,7 +34,7 @@ npm install
 
 ## 📄 Configuration
 
-Copy or Rename `config.json.example` to `config.json` and fill out the values:
+- Copy or Rename `config.json.example` to `config.json` and fill out the values:
 
 ```json
 {
@@ -43,6 +43,19 @@ Copy or Rename `config.json.example` to `config.json` and fill out the values:
         "username": "YOUR_USERNAME",
         "password": "YOUR_IRC_PASSWORD",
         "apiKey": "YOUR_API_KEY"
+    }
+}
+```
+
+- After finishes your config.json file should look like this.
+
+```json
+{
+    "username": "respacis",
+    "bancho": {
+        "username": "Suntury",
+        "password": "123456",
+        "apiKey": "asdfghjklqwerrtyuuiop"
     }
 }
 ```
