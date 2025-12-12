@@ -66,9 +66,9 @@ npm install
 
 - **bancho.username**: Your osu! username
 
-- **bancho.password**: Your osu! server password (not your account password, get it from [Get](https://osu.ppy.sh/p/api))
+- **bancho.password**: Your osu! server password (not your account password, get it from [here](https://osu.ppy.sh/p/api))
 
-- **bancho.apiKey**: Your osu! api key (get it from [Get](https://osu.ppy.sh/p/api))
+- **bancho.apiKey**: Your osu! api key (get it from [here](https://osu.ppy.sh/p/api))
 
 ![App Screenshot](https://media.discordapp.net/attachments/1371261802067001415/1449112874357362840/Screenshot_2025-12-13_015649.png?ex=693db708&is=693c6588&hm=2057eeb83dcd54930dee538eff84a893c1926f12862e2fcf7bca4937e2e8a83a&=&format=webp&quality=lossless)
 
