@@ -47,7 +47,7 @@ npm install
 }
 ```
 
-- After finishes your config.json file should look like this.
+- After finishes your `config.json` file should look like this:
 
 ```json
 {
