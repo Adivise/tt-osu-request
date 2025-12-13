@@ -13,12 +13,13 @@ bancho.connect().then(() => {
 const client = new TikTokLiveConnection(require("./config.json").username);
 
 client.connect().then(state => {
-    console.info(`Connected to roomId ${state.roomId}`);
+    console.info(`Connected to roomId: ${state.roomId}`);
 }).catch(err => {
     console.error('Failed to connect', err);
 });
 
 client.on(WebcastEvent.CHAT, async (data) => {
+    // Only allow messages that match these regex patterns exactly
     const regex = {
         beatmap_official: /^https?:\/\/osu.ppy.sh\/beatmapsets\/[0-9]+\#(osu|taiko|fruits|mania)\/([0-9]+)$/,
         beatmap_old: /^https?:\/\/(osu|old).ppy.sh\/b\/([0-9]+)$/,
@@ -28,25 +29,32 @@ client.on(WebcastEvent.CHAT, async (data) => {
         beatmapset_old: /^https?:\/\/(osu|old).ppy.sh\/s\/([0-9]+)$/,
         beatmapset_old_alternate: /^https?:\/\/(osu|old).ppy.sh\/p\/beatmap\?s=([0-9]+)$/,
     };
+    const comment = data.comment.trim();
 
-    let matchedRegex = null;
+    let matchedKey = null;
+    let matchResult = null;
+
     for (const key in regex) {
-        if (regex[key].test(data.comment.trim())) {
-            matchedRegex = regex[key];
+        matchResult = comment.match(regex[key]);
+        if (matchResult) {
+            matchedKey = key;
             break;
         }
     }
 
-    if (!matchedRegex) return;
-
-    const beatmapId = data.comment.match(matchedRegex)[2];
+    if (!matchedKey) return;
+    // Extract beatmap ID - it's in group 2 for beatmap patterns, group 1 for beatmapset patterns
+    const beatmapId = matchedKey.includes('beatmapset') ? matchResult[1] : matchResult[2];
     const { beatmaps } = new Client(require("./config.json").bancho.apiKey);
     const beatmap = await beatmaps.getByBeatmapId(beatmapId);
 
-    if (beatmap.length == 0) return;
-    if (beatmap[0].mode != require("./config.json").mode) return;
+    if (beatmap.length == 0) {
+        console.log(`[DEBUG] No beatmap found for ID: ${beatmapId}`);
+        return;
+    }
 
-    await sendMsg(require("./config.json").bancho.username, `${data.user.nickname} -> [${Approved(beatmap)}] | [${Mode(beatmap)}] [https://osu.ppy.sh/b/${beatmap[0].beatmap_id} ${beatmap[0].title}] (${parseInt(beatmap[0].difficultyrating).toFixed(2)}*, ${beatmap[0].bpm} BPM, ${convertSeconds(beatmap[0].total_length)}) - [https://beatconnect.io/b/${beatmap[0].beatmapset_id} [1]] [https://dl.sayobot.cn/beatmaps/download/novideo/${beatmap[0].beatmapset_id} [2]] [https://api.nerinyan.moe/d/${beatmap[0].beatmapset_id}?nv=1 [3]]`)
+    await sendMsg(require("./config.json").bancho.username, `${data.user.uniqueId} -> [${Approved(beatmap)}] | [${Mode(beatmap)}] [https://osu.ppy.sh/b/${beatmap[0].beatmap_id} ${beatmap[0].title}] (${parseInt(beatmap[0].difficultyrating).toFixed(2)}*, ${beatmap[0].bpm} BPM, ${convertSeconds(beatmap[0].total_length)}) - [https://beatconnect.io/b/${beatmap[0].beatmapset_id} [1]] [https://dl.sayobot.cn/beatmaps/download/novideo/${beatmap[0].beatmapset_id} [2]] [https://api.nerinyan.moe/d/${beatmap[0].beatmapset_id}?nv=1 [3]]`)
+    console.log(`[DEBUG] Message sent successfully, from user: ${data.user.uniqueId} beatmap: ${beatmap[0].title} - https://osu.ppy.sh/b/${beatmap[0].beatmap_id}`);
 });
 
 function convertSeconds(seconds) {
